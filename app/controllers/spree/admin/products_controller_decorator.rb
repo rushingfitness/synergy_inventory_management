@@ -1,5 +1,5 @@
 module Spree
-  Api::ProductsController.class_eval do
+  class ProductsController < Spree::BaseController
     skip_before_filter :load_resource, :only => [:edit_multiple, :update_multiple, :destroy_multiple]
     before_filter :load_multiple, :only => [:update_multiple, :destroy_multiple]
 
