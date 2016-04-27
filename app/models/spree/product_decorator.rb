@@ -1,6 +1,5 @@
 module Spree
-  Product.class_eval do
-    attr_accessible :add_taxon
+  class Product < Spree::Product
     attr_accessor :add_taxon
     after_save :add_taxon_save
 
