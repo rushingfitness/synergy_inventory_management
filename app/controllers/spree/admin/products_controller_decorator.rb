@@ -24,7 +24,7 @@ module Spree
     end
 
     def update_multiple
-      @collection.each { |pr| pr.update_attributes!(params[:product]) }
+      @collection.each { |pr| pr.update_attributes!(product_params) }
       flash[:notice] = I18n.t('sim.products_successfully_updated')
       respond_with(@collection) do |format|
         format.html { redirect_to admin_edit_multiple_products_url(:id => params[:id]) }
@@ -50,6 +50,9 @@ module Spree
     end
 
     private :load_multiple
-
+    
+    def product_params
+      params.require(:product).permit(:add_taxon)
+    end
   end
 end
