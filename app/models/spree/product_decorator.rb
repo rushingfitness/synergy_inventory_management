@@ -1,21 +1,19 @@
-module Spree
-  class Product < Spree::Product
-    attr_accessor :add_taxon
-    after_save :add_taxon_save
+class Product < Spree::Product
+  attr_accessor :add_taxon
+  after_save :add_taxon_save
 
-    def active?
-      self.deleted_at.nil? and available?
-    end
+  def active?
+    self.deleted_at.nil? and available?
+  end
 
-    def available?
-      available_on.nil? ? false : available_on < Time.zone.now
-    end
+  def available?
+    available_on.nil? ? false : available_on < Time.zone.now
+  end
 
-    def add_taxon_save
-      return true unless add_taxon.present?
-      taxon = Taxon.find(add_taxon)
-      self.taxons << taxon if !self.taxons.include? taxon
-      true
-    end
+  def add_taxon_save
+    return true unless add_taxon.present?
+    taxon = Taxon.find(add_taxon)
+    self.taxons << taxon if !self.taxons.include? taxon
+    true
   end
 end
